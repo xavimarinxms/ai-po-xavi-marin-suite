@@ -13,11 +13,16 @@ interface ToolFrameProps {
  * and a friendly fallback when the tool has no URL configured yet (local
  * dev not running, or not deployed to production).
  *
+ * Every tool's functional entry point lives at /demo (its landing page at
+ * "/" is a separate marketing page meant to be visited standalone, not
+ * embedded). The suite always deep-links straight into /demo.
+ *
  * The `?embed=1` query param is a convention the individual tools should
  * read to hide their own header/footer chrome — see README for the patch.
  */
 export default function ToolFrame({ tool }: ToolFrameProps) {
   const [loaded, setLoaded] = useState(false);
+  const demoUrl = tool.url ? `${tool.url.replace(/\/$/, '')}/demo` : '';
 
   if (!tool.url) {
     return (
@@ -49,14 +54,15 @@ export default function ToolFrame({ tool }: ToolFrameProps) {
         </div>
       )}
       <iframe
-        src={`${tool.url}${tool.url.includes('?') ? '&' : '?'}embed=1`}
+        src={`${demoUrl}?embed=1`}
         title={tool.name}
         onLoad={() => setLoaded(true)}
         className="w-full h-full border-0"
         style={{ minHeight: 'calc(100vh - 49px)' }}
+        allow="clipboard-write"
       />
       <a
-        href={tool.url}
+        href={demoUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="hidden lg:flex absolute top-3 right-4 z-20 items-center gap-1.5 text-[11px] font-medium text-gray-500 hover:text-gray-900 bg-white/90 backdrop-blur border border-gray-200 rounded-lg px-2.5 py-1.5 transition-colors"
