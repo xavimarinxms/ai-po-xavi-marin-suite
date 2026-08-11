@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { Tool } from '@/types';
-import { IconExternalLink, IconClock } from './icons';
+import { IconExternalLink, IconClock, IconInfo } from './icons';
 
 interface ToolFrameProps {
   tool: Tool;
@@ -61,15 +61,26 @@ export default function ToolFrame({ tool }: ToolFrameProps) {
         style={{ minHeight: 'calc(100vh - 49px)' }}
         allow="clipboard-write"
       />
-      <a
-        href={demoUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hidden lg:flex absolute top-3 right-4 z-20 items-center gap-1.5 text-[11px] font-medium text-gray-500 hover:text-gray-900 bg-white/90 backdrop-blur border border-gray-200 rounded-lg px-2.5 py-1.5 transition-colors"
-      >
-        <IconExternalLink className="w-3 h-3" />
-        Open in new tab
-      </a>
+      <div className="hidden lg:flex absolute top-3 right-4 z-20 items-center gap-2">
+        <a
+          href={tool.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 text-[11px] font-medium text-gray-500 hover:text-gray-900 bg-white/90 backdrop-blur border border-gray-200 rounded-lg px-2.5 py-1.5 transition-colors"
+        >
+          <IconInfo className="w-3 h-3" />
+          About this tool
+        </a>
+        <a
+          href={demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 text-[11px] font-medium text-gray-500 hover:text-gray-900 bg-white/90 backdrop-blur border border-gray-200 rounded-lg px-2.5 py-1.5 transition-colors"
+        >
+          <IconExternalLink className="w-3 h-3" />
+          Open in new tab
+        </a>
+      </div>
     </div>
   );
 }
