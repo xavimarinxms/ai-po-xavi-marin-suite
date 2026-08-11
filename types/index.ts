@@ -42,6 +42,13 @@ export interface Tool {
   url: string;
   /** Folder name of the tool in the repo, shown in the not-deployed state */
   repoFolder: string;
+  /**
+   * Whether this tool shows up in the sidebar, landing grid and counts.
+   * Defaults to true when omitted. Set to false to hide a tool that isn't
+   * ready yet without deleting its registry entry — flip it back to true
+   * (or remove the field) to bring it back.
+   */
+  visible?: boolean;
 }
 
 /** Visual treatment per phase. Kept in one place so colors never drift. */

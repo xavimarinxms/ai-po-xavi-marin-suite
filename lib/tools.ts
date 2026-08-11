@@ -30,6 +30,9 @@ export const TOOLS: Tool[] = [
     icon: 'messages',
     url: env(process.env.NEXT_PUBLIC_TOOL_FEEDBACK_SYNTHESIZER),
     repoFolder: 'feedback-synthesizer',
+    // Not built yet ("próximamente") — hidden from sidebar/landing/counts.
+    // Flip to true (or delete this line) once it's ready to show again.
+    visible: false,
   },
   {
     slug: 'interview-insights',
@@ -227,24 +230,31 @@ export function getToolBySlug(slug: string): Tool | undefined {
   return TOOLS.find((tool) => tool.slug === slug);
 }
 
+/** Tools shown in the sidebar, landing grid and counts (visible !== false). */
+export function getVisibleTools(): Tool[] {
+  return TOOLS.filter((tool) => tool.visible !== false);
+}
+
 /** Group tools by phase, preserving PHASE_ORDER and skipping empty phases. */
 export function getToolsByPhase(): { phase: Phase; tools: Tool[] }[] {
+  const visible = getVisibleTools();
   return PHASE_ORDER.map((phase) => ({
     phase,
-    tools: TOOLS.filter((tool) => tool.phase === phase),
+    tools: visible.filter((tool) => tool.phase === phase),
   })).filter((group) => group.tools.length > 0);
 }
 
 /** Count of tools per phase, used for the filter chip counters. */
 export function getPhaseCounts(): Record<string, number> {
-  const counts: Record<string, number> = { all: TOOLS.length };
+  const visible = getVisibleTools();
+  const counts: Record<string, number> = { all: visible.length };
   PHASE_ORDER.forEach((phase) => {
-    counts[phase] = TOOLS.filter((tool) => tool.phase === phase).length;
+    counts[phase] = visible.filter((tool) => tool.phase === phase).length;
   });
   return counts;
 }
 
 /** How many tools actually have a URL configured. Drives the landing stats. */
 export function getLiveToolCount(): number {
-  return TOOLS.filter((tool) => tool.url !== '').length;
+  return getVisibleTools().filter((tool) => tool.url !== '').length;
 }

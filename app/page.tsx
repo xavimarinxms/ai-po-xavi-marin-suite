@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TOOLS, PHASE_ORDER, getPhaseCounts, getLiveToolCount } from '@/lib/tools';
+import { PHASE_ORDER, getPhaseCounts, getLiveToolCount, getVisibleTools } from '@/lib/tools';
 import ToolExplorer from '@/components/ToolExplorer';
 import Footer from '@/components/Footer';
 import { IconRobot, IconArrowRight, IconComponents } from '@/components/icons';
@@ -100,6 +100,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 export default function HomePage() {
+  const tools = getVisibleTools();
   const phaseCounts = getPhaseCounts();
   const liveCount = getLiveToolCount();
 
@@ -132,7 +133,7 @@ export default function HomePage() {
               Roadmap
             </a>
             <Link
-              href={`/tools/${TOOLS[0].slug}`}
+              href={`/tools/${tools[0].slug}`}
               className="text-xs font-semibold text-white bg-brand-500 hover:bg-brand-600 rounded-lg px-3.5 py-1.5 transition-colors"
             >
               Try a tool
@@ -151,7 +152,7 @@ export default function HomePage() {
           The <span className="text-brand-600">PO toolkit</span> I built for my own work
         </h1>
         <p className="text-sm text-gray-600 max-w-lg mx-auto mb-8 leading-relaxed">
-          {TOOLS.length} AI tools that automate the repetitive side of Product Management —
+          {tools.length} AI tools that automate the repetitive side of Product Management —
           from discovery to delivery. Built and used daily by a real PO.
         </p>
         <div className="flex items-center justify-center gap-3">
@@ -179,7 +180,7 @@ export default function HomePage() {
       {/* Stats */}
       <section className="border-b border-gray-200 bg-gray-50">
         <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-4 divide-x divide-gray-200">
-          <Stat value={TOOLS.length} label="AI tools" />
+          <Stat value={tools.length} label="AI tools" />
           <Stat value={PHASE_ORDER.length} label="PO phases covered" />
           <Stat value={liveCount} label="Deployed today" />
           <Stat value="0€" label="Cost to use" />
@@ -192,7 +193,7 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-1">All tools</h2>
           <p className="text-sm text-gray-500">Filter by phase, then open any tool with sample data preloaded.</p>
         </div>
-        <ToolExplorer tools={TOOLS} phaseCounts={phaseCounts} />
+        <ToolExplorer tools={tools} phaseCounts={phaseCounts} />
       </section>
 
       {/* Roadmap */}
