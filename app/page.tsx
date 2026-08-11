@@ -164,7 +164,7 @@ export default function HomePage() {
             <IconArrowRight className="w-4 h-4" />
           </a>
           <a
-            href="https://github.com"
+            href="https://github.com/xavimarinxms/ai-po-xavi-marin-suite"
             target="_blank"
             rel="noopener noreferrer"
             className="border border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-medium rounded-xl py-3 px-6 transition-colors bg-white"
