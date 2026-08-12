@@ -32,6 +32,7 @@ export default function Sidebar({ activeSlug, open, onClose }: SidebarProps) {
       )}
 
       <aside
+        data-tour="sidebar"
         className={`
           fixed lg:static inset-y-0 left-0 z-40
           w-64 flex-shrink-0 bg-white border-r border-gray-200

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { PHASE_ORDER, getPhaseCounts, getLiveToolCount, getVisibleTools } from '@/lib/tools';
 import ToolExplorer from '@/components/ToolExplorer';
 import Footer from '@/components/Footer';
+import TourButton from '@/components/tour/TourButton';
 import { IconRobot, IconArrowRight, IconComponents } from '@/components/icons';
 
 const ROADMAP: {
@@ -129,15 +130,21 @@ export default function HomePage() {
             <a href="#tools" className="text-xs text-gray-500 hover:text-gray-700 transition-colors hidden sm:block">
               Tools
             </a>
-            <a href="#roadmap" className="text-xs text-gray-500 hover:text-gray-700 transition-colors hidden sm:block">
+            <a
+              href="#roadmap"
+              data-tour="roadmap-link"
+              className="text-xs text-gray-500 hover:text-gray-700 transition-colors hidden sm:block"
+            >
               Roadmap
             </a>
             <Link
               href={`/tools/${tools[0].slug}`}
+              data-tour="nav-cta"
               className="text-xs font-semibold text-white bg-brand-500 hover:bg-brand-600 rounded-lg px-3.5 py-1.5 transition-colors"
             >
               Try a tool
             </Link>
+            <TourButton />
           </div>
         </div>
       </header>

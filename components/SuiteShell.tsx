@@ -6,6 +6,7 @@ import type { Tool } from '@/types';
 import { PHASE_STYLES } from '@/lib/tools';
 import Sidebar from './Sidebar';
 import ToolFrame from './ToolFrame';
+import TourButton from './tour/TourButton';
 import { IconMenu, IconArrowLeft, IconExpand, IconCollapse } from './icons';
 
 interface SuiteShellProps {
@@ -65,22 +66,26 @@ export default function SuiteShell({ tool }: SuiteShellProps) {
             <p className="text-sm font-semibold text-gray-900 truncate">{tool.name}</p>
           </div>
 
-          <button
-            onClick={() => setFullscreen((v) => !v)}
-            className="hidden lg:flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
-          >
-            {fullscreen ? (
-              <>
-                <IconCollapse className="w-3.5 h-3.5" />
-                Show sidebar
-              </>
-            ) : (
-              <>
-                <IconExpand className="w-3.5 h-3.5" />
-                Full screen
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <TourButton slug={tool.slug} toolName={tool.name} />
+            <button
+              data-tour="fullscreen"
+              onClick={() => setFullscreen((v) => !v)}
+              className="hidden lg:flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
+            >
+              {fullscreen ? (
+                <>
+                  <IconCollapse className="w-3.5 h-3.5" />
+                  Show sidebar
+                </>
+              ) : (
+                <>
+                  <IconExpand className="w-3.5 h-3.5" />
+                  Full screen
+                </>
+              )}
+            </button>
+          </div>
         </header>
 
         <ToolFrame tool={tool} />

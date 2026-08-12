@@ -26,7 +26,7 @@ export default function ToolFrame({ tool }: ToolFrameProps) {
 
   if (!tool.url) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-gray-50">
+      <div data-tour="tool-surface" className="flex-1 flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-sm px-6">
           <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
             <IconClock className="w-6 h-6 text-gray-400" />
@@ -44,7 +44,7 @@ export default function ToolFrame({ tool }: ToolFrameProps) {
   }
 
   return (
-    <div className="flex-1 relative bg-gray-50">
+    <div data-tour="tool-surface" className="flex-1 relative bg-gray-50">
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-white z-10">
           <div className="flex flex-col items-center gap-3">
@@ -54,6 +54,7 @@ export default function ToolFrame({ tool }: ToolFrameProps) {
         </div>
       )}
       <iframe
+        data-tour-target
         src={`${demoUrl}?embed=1`}
         title={tool.name}
         onLoad={() => setLoaded(true)}
@@ -61,7 +62,7 @@ export default function ToolFrame({ tool }: ToolFrameProps) {
         style={{ minHeight: 'calc(100vh - 49px)' }}
         allow="clipboard-write"
       />
-      <div className="hidden lg:flex absolute top-3 right-4 z-20 items-center gap-2">
+      <div data-tour="tool-actions" className="hidden lg:flex absolute top-3 right-4 z-20 items-center gap-2">
         <a
           href={tool.url}
           target="_blank"

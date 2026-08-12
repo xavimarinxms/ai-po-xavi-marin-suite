@@ -22,7 +22,7 @@ export default function ToolExplorer({ tools, phaseCounts }: ToolExplorerProps) 
 
   return (
     <div id="tools">
-      <div className="flex flex-wrap items-center gap-2 mb-6">
+      <div data-tour="filters" className="flex flex-wrap items-center gap-2 mb-6">
         <FilterChip
           label="All"
           count={phaseCounts.all}
@@ -41,8 +41,10 @@ export default function ToolExplorer({ tools, phaseCounts }: ToolExplorerProps) 
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {visibleTools.map((tool) => (
-          <ToolCard key={tool.slug} tool={tool} />
+        {visibleTools.map((tool, i) => (
+          <div key={tool.slug} data-tour={i === 0 ? 'tool-card' : undefined}>
+            <ToolCard tool={tool} />
+          </div>
         ))}
       </div>
     </div>
